@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="question.css" >
+<link rel="stylesheet" href="bootstrap.css"
+ crossorigin="anonymous">
+<body style="background-color:black;">
+	 <div class="container">
+    <div class="row card-panel">
+      <h1 class="center-align" style="text-align: center; ">CHALLENGE</h1>
+<div class="col-md-8" style="padding-bottom: 350px;">	 
+        
+  <form id="quiz" name="quiz" action="/question1" method="post">
+  	
+    <p>2 + 2 = </p>
+    
+    <br>
+    
+    <input type="hidden" id="pop1" class="input3" name="" value=%= population %>
+    <input type="hidden" id="pop2" class="input4" name="infectedPopulation">
+     <label for="answer" id="label" style="font-family: URW Chancery L, cursive;" > <b> Answer </b> </label>
+        <input type="text" id="answer-input" name="answer">
+        <br>
+        <br>
+
+    <button class="btn btn-primary btn-lg" class="bb" type="submit" onclick="changePopulation()" name="button" style="font-family: URW Chancery L, cursive; background-color: #dfd113">Submit</button>
+  </form>
+
+ 
+</div>
+</div>
+</div>
+
+  <table class="table table-dark table-borderless col-md-3" style="color: white ">
+  <tr class="header">
+    <td>TIME LEFT (in minutes) </td>
+  <tr>
+    <td id="timer"></td>
+  </tr>
+
+</table>
+</tr>
+ 
+  
+
+
+
+
+<script type="text/javascript">
+  function changePopulation() {
+    var ans1 = document.querySelector(".ans1")
+    var pop1 = document.getElementById("pop1").value;
+
+    if (ans1.value === "4") {
+      var x = pop1 / 2;
+      document.getElementById("pop2").value = x;
+    } else {
+      var y = pop1 * 2;
+      document.getElementById("pop2").value = y;
+    }
+
+  }
+</script>
+<script>
+
+  if (sessionStorage.getItem("total_seconds1")) {
+    var total_seconds = sessionStorage.getItem("total_seconds1");
+  } else {
+    var total_seconds = 60 * 5;
+  }
+  var minutes = parseInt(total_seconds / 60);
+  var seconds = parseInt(total_seconds % 60);
+
+  function countDownTimer() {
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+
+    document.getElementById("timer").innerHTML = minutes + " : " + seconds;
+    if (total_seconds <= 0) {
+      changePopulation();
+      document.forms["quiz"].submit();
+
+    } else {
+      total_seconds = total_seconds - 1;
+      minutes = parseInt(total_seconds / 60);
+      seconds = parseInt(total_seconds % 60);
+      sessionStorage.setItem("total_seconds1", total_seconds)
+      setTimeout("countDownTimer()", 1000);
+    }
+  }
+  setTimeout("countDownTimer()", 1000);
+</script>
+
+</body>
+</html>
